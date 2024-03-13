@@ -41,3 +41,12 @@ Interact with the bot via the command line, receiving real-time responses
 - Type 'history' to print the full chat history in the terminal
 - Type 'restart' to start a new chat, wipe the bot's history and store to a local file
 - Type 'exit' to quit the program and save current session to file
+
+## Contributions
+
+Feel free to fork this project, submit pull requests, or suggest features or improvements via issues.
+
+## License
+
+Project licensed under MIT. See [LICENSE](LICENSE) for more details
+**This project is not affiliated with Google, and uses the Gemini API under its respective terms of service.**
