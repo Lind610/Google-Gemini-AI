@@ -4,7 +4,7 @@
 
  ## Features
  * Gemini API Integration
- * Chat History Management: Keeps track of conversation history with a custom `ChatHistoryManager` class, allowing for continuity in conversations
+ * Chat History Management: Keeps track of conversation history with a custom `ChatManager` class, allowing for continuity in conversations
  * Persistant Chat Storage: Saves chat history to a custom file, ensuring that the context is preserved even after the program restarts.
 
 ## Requirements
