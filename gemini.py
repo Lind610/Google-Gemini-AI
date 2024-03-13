@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 import os
 import google.generativeai as genai
 
-class ChatHistoryManager:
+class ChatManager:
   def __init__(self, file="ChatHistoryBackup.txt", max_file_sizeMB=5):
     self.history = []
     self.filename = file
@@ -76,8 +76,8 @@ generation_config = {
 }
 
 # Creating new instance of the history manager and creating initial session message
-history_manager = ChatHistoryManager()
-history_manager.add_msg_to_history("system", "----New Session----")
+history_manager = ChatManager()
+history_manager.add_msg_to_history("system", "--------- New Session ---------\n")
 
 # Selecting the model to use and initialising it
 model = genai.GenerativeModel('gemini-pro', safety_settings=safety_settings, generation_config=generation_config)
@@ -91,7 +91,9 @@ print("----------------------------------------")
 
 # Main loop
 while True:
-  user_input = input("Awaiting input. What would you like to do?")
+  user_input = input("""Awaiting input.\n
+To exit, type 'exit'\nTo view the chat history, type 'history'\nTo restart the program, type 'restart'\n
+What would you like to do?""")
   print("----------------------------------------")
   
   # If user types 'exit', quits the program and saves the char history 
@@ -107,8 +109,8 @@ while True:
   # Restarts the chat, wiping the model's history
   elif user_input.lower() == "restart":
     history_manager.save_history_to_file()
-    os.system('cls' if os.name == 'nt' else 'clear')
-    history_manager.add_msg_to_history("system", "----New Session----")
+    os.system('clear')
+    history_manager.add_msg_to_history("system", "--------- New Session ---------")
     chat = model.start_chat(history=[])
     continue
   
@@ -119,4 +121,4 @@ while True:
     history_manager.add_msg_to_history("user", user_input)
     history_manager.add_msg_to_history("gemini", response.text)
   except Exception as e:
-            print(f"An error occurred: {e}")
+            print(f"Error: {e}")
