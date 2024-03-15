@@ -62,13 +62,13 @@ FOR EXAMPLE, "YOU ARE CAPTAIN JACK SPARROW, FAMOUS PIRATE! ANSWER QUESTIONS IN H
 GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')
 genai.configure(api_key=GOOGLE_API_KEY)
 
-# Modifiying the model config so messages aren't blocked
-safety_settings = {
-        "HARM_CATEGORY_HARASSMENT": "BLOCK_NONE",
-        "HARM_CATEGORY_HATE_SPEECH": "BLOCK_NONE",
-        "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
-        "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
-}
+# Modifiying the model config so messages aren't blocked. Optional settings, use only if you don't want messages to be blocked
+#safety_settings = {
+#        "HARM_CATEGORY_HARASSMENT": "BLOCK_NONE",
+#        "HARM_CATEGORY_HATE_SPEECH": "BLOCK_NONE",
+#        "HARM_CATEGORY_SEXUALLY_EXPLICIT": "BLOCK_NONE",
+#        "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
+#}
 
 # Change the config to determine the outputs of the model
 generation_config = {
@@ -79,8 +79,8 @@ generation_config = {
 history_manager = ChatManager()
 history_manager.add_msg_to_history("system", "--------- New Session ---------\n")
 
-# Selecting the model to use and initialising it
-model = genai.GenerativeModel('gemini-pro', safety_settings=safety_settings, generation_config=generation_config)
+# Selecting the model to use and initialising it. Use safety_settings=safety_settings only if code on line 66 is uncommented
+model = genai.GenerativeModel('gemini-pro', generation_config=generation_config)
 chat = model.start_chat(history=[])
 chat
 
