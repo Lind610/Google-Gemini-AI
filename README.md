@@ -10,6 +10,7 @@
 ## Requirements
 * Python 3.x
 * Google Gemini API key
+* GCloud CLI
 
 ## Setup
 
@@ -23,6 +24,7 @@
    ```bash
    python -m pip install -r requirements.txt
    ```
+3. Setup your GCloud Application default credentials by following [these](https://cloud.google.com/docs/authentication/provide-credentials-adc#local-dev) steps. 
 4. Setup your `.env` file with your API key.
    
    This can be done by creating a `.env` file in your directory and adding ```GOOGLE_API_KEY = "your_api_key_here"```
@@ -49,4 +51,5 @@ Feel free to fork this project, submit pull requests, or suggest features or imp
 ## License
 
 Project licensed under MIT. See [LICENSE](LICENSE) for more details
+
 **This project is not affiliated with Google, and uses the Gemini API under its respective terms of service.**
