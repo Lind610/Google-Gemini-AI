@@ -1,4 +1,6 @@
+env
 .env
 .venv
 temp.py
 main.py
+ChatHistoryBackup.txts
