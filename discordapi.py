@@ -10,8 +10,8 @@ class ChatBot(discord.Client):
         super().__init__(intents=intents, loop=loop, **options)
 
     async def on_message(self, message: discord.Message):
-        if message.author.bot:  # Ignores all bot input including itself.
-            return
+        #if message.author.bot:  # Ignores all bot input including itself.
+        #    return
 
         msg = message.content.split(" ")
 
@@ -32,7 +32,6 @@ class ChatBot(discord.Client):
 if __name__ == "__main__":
     # Initalize Gemini client
     Gemini = gemini.GeminiManager()
-
     # Initalize Discord client
     client = ChatBot(gemini_model=Gemini, intents=discord.Intents.all())
     tree = app_commands.CommandTree(client)
@@ -56,7 +55,7 @@ if __name__ == "__main__":
     )
     async def personality(interaction: discord.Interaction, init_prompt: str):
         Gemini.init_msg = init_prompt
-        response = Gemini.reset()
+        Gemini.reset()
         await interaction.response.send_message("Successfully performed the changes!")
 
     client.run(os.getenv("DISCORD_API_KEY"))
