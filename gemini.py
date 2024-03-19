@@ -22,17 +22,28 @@ class GeminiManager():
             "HARM_CATEGORY_DANGEROUS_CONTENT": "BLOCK_NONE",
         }
 
-        generation_config = {"temperature": 0.9}
+        generation_config = {"temperature": 0.8}
 
         # This variable can be used to determine the personality of the chatbot
-        self.init_msg = "You are the most polite robot ever created however, you have deep hatred for commas. Answer every following prompts in kind"
+        self.init_personality = "You are the most polite robot ever created; however, you have a deep hatred for commas and hate anyone who uses them. Answer every following prompt in kind"
+        self.init_msg = """
+        You are a chat bot called Gemini in a discord server with anouther chat bot and will talk to it. 
+        In addition you will respond while following these rules
+        1. Reply with short reponses only maximum 500 characters
+        2. Swearing is allowed
+        3. Racisim, Sexism, and Hate Speech is not allowed
+        4. Your goal is to be funny and entertaining
+
+        Finally your responses should comply with the following personality:
+        !!PERSONALITY
+        """
         self.model = genai.GenerativeModel(
             "gemini-pro",
             generation_config=generation_config,
             safety_settings=safety_settings,
         )
 
-        # Perform the inital "reset" to initalize chat session
+        # Perform the inital "reset" to initalize chat sessions
         self.reset()
 
     def interact(self, user_input: str) -> str:
@@ -43,7 +54,7 @@ class GeminiManager():
             self.history_manager.add_msg_to_history("gemini", response.text)
         except Exception as e:
             print(f"Error: {e}")
-            return "Im sorry. There an error occured while processing that request"
+            return "Im sorry. An error occured while processing that request"
 
         return response.text
 
@@ -53,7 +64,7 @@ class GeminiManager():
         self.history_manager.add_msg_to_history("system", "--------- New Session ---------")
 
         self.chat = self.model.start_chat(history=[])
-        self.chat.send_message(self.init_msg)
+        self.chat.send_message(self.init_msg.replace("!!PERSONALITY", self.init_personality))
 
 
 class ChatManager:
